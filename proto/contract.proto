@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package nimbler;
 
-service Server {
+service Writer {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
 }

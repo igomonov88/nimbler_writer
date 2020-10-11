@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.25.0-devel
 // 	protoc        v3.12.3
-// source: nimbler_writer/proto/users.proto
+// source: nimbler_writer/proto/contract.proto
 
 package nimbler
 
@@ -38,7 +38,7 @@ type HealthCheckRequest struct {
 func (x *HealthCheckRequest) Reset() {
 	*x = HealthCheckRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_nimbler_writer_proto_users_proto_msgTypes[0]
+		mi := &file_nimbler_writer_proto_contract_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -51,7 +51,7 @@ func (x *HealthCheckRequest) String() string {
 func (*HealthCheckRequest) ProtoMessage() {}
 
 func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_nimbler_writer_proto_users_proto_msgTypes[0]
+	mi := &file_nimbler_writer_proto_contract_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -64,7 +64,7 @@ func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead.
 func (*HealthCheckRequest) Descriptor() ([]byte, []int) {
-	return file_nimbler_writer_proto_users_proto_rawDescGZIP(), []int{0}
+	return file_nimbler_writer_proto_contract_proto_rawDescGZIP(), []int{0}
 }
 
 type HealthCheckResponse struct {
@@ -78,7 +78,7 @@ type HealthCheckResponse struct {
 func (x *HealthCheckResponse) Reset() {
 	*x = HealthCheckResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_nimbler_writer_proto_users_proto_msgTypes[1]
+		mi := &file_nimbler_writer_proto_contract_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -91,7 +91,7 @@ func (x *HealthCheckResponse) String() string {
 func (*HealthCheckResponse) ProtoMessage() {}
 
 func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_nimbler_writer_proto_users_proto_msgTypes[1]
+	mi := &file_nimbler_writer_proto_contract_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -104,7 +104,7 @@ func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead.
 func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
-	return file_nimbler_writer_proto_users_proto_rawDescGZIP(), []int{1}
+	return file_nimbler_writer_proto_contract_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *HealthCheckResponse) GetVersion() string {
@@ -126,7 +126,7 @@ type CreateUserRequest struct {
 func (x *CreateUserRequest) Reset() {
 	*x = CreateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_nimbler_writer_proto_users_proto_msgTypes[2]
+		mi := &file_nimbler_writer_proto_contract_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -139,7 +139,7 @@ func (x *CreateUserRequest) String() string {
 func (*CreateUserRequest) ProtoMessage() {}
 
 func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_nimbler_writer_proto_users_proto_msgTypes[2]
+	mi := &file_nimbler_writer_proto_contract_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -152,7 +152,7 @@ func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
 func (*CreateUserRequest) Descriptor() ([]byte, []int) {
-	return file_nimbler_writer_proto_users_proto_rawDescGZIP(), []int{2}
+	return file_nimbler_writer_proto_contract_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CreateUserRequest) GetEmail() string {
@@ -180,7 +180,7 @@ type CreateUserResponse struct {
 func (x *CreateUserResponse) Reset() {
 	*x = CreateUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_nimbler_writer_proto_users_proto_msgTypes[3]
+		mi := &file_nimbler_writer_proto_contract_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -193,7 +193,7 @@ func (x *CreateUserResponse) String() string {
 func (*CreateUserResponse) ProtoMessage() {}
 
 func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_nimbler_writer_proto_users_proto_msgTypes[3]
+	mi := &file_nimbler_writer_proto_contract_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -206,7 +206,7 @@ func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
 func (*CreateUserResponse) Descriptor() ([]byte, []int) {
-	return file_nimbler_writer_proto_users_proto_rawDescGZIP(), []int{3}
+	return file_nimbler_writer_proto_contract_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *CreateUserResponse) GetUserID() string {
@@ -216,60 +216,61 @@ func (x *CreateUserResponse) GetUserID() string {
 	return ""
 }
 
-var File_nimbler_writer_proto_users_proto protoreflect.FileDescriptor
+var File_nimbler_writer_proto_contract_proto protoreflect.FileDescriptor
 
-var file_nimbler_writer_proto_users_proto_rawDesc = []byte{
-	0x0a, 0x20, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x5f, 0x77, 0x72, 0x69, 0x74, 0x65, 0x72,
-	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x73, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x12, 0x07, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x22, 0x14, 0x0a, 0x12, 0x48,
-	0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x22, 0x2f, 0x0a, 0x13, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73,
-	0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69,
-	0x6f, 0x6e, 0x22, 0x45, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a,
-	0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x2c, 0x0a, 0x12, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x32, 0x9d, 0x01, 0x0a, 0x06, 0x53, 0x65, 0x72, 0x76,
-	0x65, 0x72, 0x12, 0x47, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72,
-	0x12, 0x1a, 0x2e, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x6e,
-	0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65,
-	0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4a, 0x0a, 0x0b, 0x48,
-	0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x12, 0x1b, 0x2e, 0x6e, 0x69, 0x6d,
+var file_nimbler_writer_proto_contract_proto_rawDesc = []byte{
+	0x0a, 0x23, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x5f, 0x77, 0x72, 0x69, 0x74, 0x65, 0x72,
+	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x22, 0x14,
+	0x0a, 0x12, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x22, 0x2f, 0x0a, 0x13, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68,
+	0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x76,
+	0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x76, 0x65,
+	0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x45, 0x0a, 0x11, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
+	0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d,
+	0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c,
+	0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x22, 0x2c, 0x0a, 0x12,
+	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x32, 0x9d, 0x01, 0x0a, 0x06, 0x57,
+	0x72, 0x69, 0x74, 0x65, 0x72, 0x12, 0x47, 0x0a, 0x0a, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x55,
+	0x73, 0x65, 0x72, 0x12, 0x1a, 0x2e, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x2e, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1b, 0x2e, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x4a,
+	0x0a, 0x0b, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x12, 0x1b, 0x2e,
+	0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65, 0x72, 0x2e, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68,
+	0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x6e, 0x69, 0x6d,
 	0x62, 0x6c, 0x65, 0x72, 0x2e, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x6e, 0x69, 0x6d, 0x62, 0x6c, 0x65,
-	0x72, 0x2e, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
-	file_nimbler_writer_proto_users_proto_rawDescOnce sync.Once
-	file_nimbler_writer_proto_users_proto_rawDescData = file_nimbler_writer_proto_users_proto_rawDesc
+	file_nimbler_writer_proto_contract_proto_rawDescOnce sync.Once
+	file_nimbler_writer_proto_contract_proto_rawDescData = file_nimbler_writer_proto_contract_proto_rawDesc
 )
 
-func file_nimbler_writer_proto_users_proto_rawDescGZIP() []byte {
-	file_nimbler_writer_proto_users_proto_rawDescOnce.Do(func() {
-		file_nimbler_writer_proto_users_proto_rawDescData = protoimpl.X.CompressGZIP(file_nimbler_writer_proto_users_proto_rawDescData)
+func file_nimbler_writer_proto_contract_proto_rawDescGZIP() []byte {
+	file_nimbler_writer_proto_contract_proto_rawDescOnce.Do(func() {
+		file_nimbler_writer_proto_contract_proto_rawDescData = protoimpl.X.CompressGZIP(file_nimbler_writer_proto_contract_proto_rawDescData)
 	})
-	return file_nimbler_writer_proto_users_proto_rawDescData
+	return file_nimbler_writer_proto_contract_proto_rawDescData
 }
 
-var file_nimbler_writer_proto_users_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_nimbler_writer_proto_users_proto_goTypes = []interface{}{
+var file_nimbler_writer_proto_contract_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_nimbler_writer_proto_contract_proto_goTypes = []interface{}{
 	(*HealthCheckRequest)(nil),  // 0: nimbler.HealthCheckRequest
 	(*HealthCheckResponse)(nil), // 1: nimbler.HealthCheckResponse
 	(*CreateUserRequest)(nil),   // 2: nimbler.CreateUserRequest
 	(*CreateUserResponse)(nil),  // 3: nimbler.CreateUserResponse
 }
-var file_nimbler_writer_proto_users_proto_depIdxs = []int32{
-	2, // 0: nimbler.Server.CreateUser:input_type -> nimbler.CreateUserRequest
-	0, // 1: nimbler.Server.HealthCheck:input_type -> nimbler.HealthCheckRequest
-	3, // 2: nimbler.Server.CreateUser:output_type -> nimbler.CreateUserResponse
-	1, // 3: nimbler.Server.HealthCheck:output_type -> nimbler.HealthCheckResponse
+var file_nimbler_writer_proto_contract_proto_depIdxs = []int32{
+	2, // 0: nimbler.Writer.CreateUser:input_type -> nimbler.CreateUserRequest
+	0, // 1: nimbler.Writer.HealthCheck:input_type -> nimbler.HealthCheckRequest
+	3, // 2: nimbler.Writer.CreateUser:output_type -> nimbler.CreateUserResponse
+	1, // 3: nimbler.Writer.HealthCheck:output_type -> nimbler.HealthCheckResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -277,13 +278,13 @@ var file_nimbler_writer_proto_users_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_nimbler_writer_proto_users_proto_init() }
-func file_nimbler_writer_proto_users_proto_init() {
-	if File_nimbler_writer_proto_users_proto != nil {
+func init() { file_nimbler_writer_proto_contract_proto_init() }
+func file_nimbler_writer_proto_contract_proto_init() {
+	if File_nimbler_writer_proto_contract_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_nimbler_writer_proto_users_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_nimbler_writer_proto_contract_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HealthCheckRequest); i {
 			case 0:
 				return &v.state
@@ -295,7 +296,7 @@ func file_nimbler_writer_proto_users_proto_init() {
 				return nil
 			}
 		}
-		file_nimbler_writer_proto_users_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_nimbler_writer_proto_contract_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HealthCheckResponse); i {
 			case 0:
 				return &v.state
@@ -307,7 +308,7 @@ func file_nimbler_writer_proto_users_proto_init() {
 				return nil
 			}
 		}
-		file_nimbler_writer_proto_users_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_nimbler_writer_proto_contract_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateUserRequest); i {
 			case 0:
 				return &v.state
@@ -319,7 +320,7 @@ func file_nimbler_writer_proto_users_proto_init() {
 				return nil
 			}
 		}
-		file_nimbler_writer_proto_users_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_nimbler_writer_proto_contract_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateUserResponse); i {
 			case 0:
 				return &v.state
@@ -336,20 +337,20 @@ func file_nimbler_writer_proto_users_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_nimbler_writer_proto_users_proto_rawDesc,
+			RawDescriptor: file_nimbler_writer_proto_contract_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_nimbler_writer_proto_users_proto_goTypes,
-		DependencyIndexes: file_nimbler_writer_proto_users_proto_depIdxs,
-		MessageInfos:      file_nimbler_writer_proto_users_proto_msgTypes,
+		GoTypes:           file_nimbler_writer_proto_contract_proto_goTypes,
+		DependencyIndexes: file_nimbler_writer_proto_contract_proto_depIdxs,
+		MessageInfos:      file_nimbler_writer_proto_contract_proto_msgTypes,
 	}.Build()
-	File_nimbler_writer_proto_users_proto = out.File
-	file_nimbler_writer_proto_users_proto_rawDesc = nil
-	file_nimbler_writer_proto_users_proto_goTypes = nil
-	file_nimbler_writer_proto_users_proto_depIdxs = nil
+	File_nimbler_writer_proto_contract_proto = out.File
+	file_nimbler_writer_proto_contract_proto_rawDesc = nil
+	file_nimbler_writer_proto_contract_proto_goTypes = nil
+	file_nimbler_writer_proto_contract_proto_depIdxs = nil
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -360,110 +361,110 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// ServerClient is the client API for Server service.
+// WriterClient is the client API for Writer service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type ServerClient interface {
+type WriterClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
 }
 
-type serverClient struct {
+type writerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewServerClient(cc grpc.ClientConnInterface) ServerClient {
-	return &serverClient{cc}
+func NewWriterClient(cc grpc.ClientConnInterface) WriterClient {
+	return &writerClient{cc}
 }
 
-func (c *serverClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
+func (c *writerClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	out := new(CreateUserResponse)
-	err := c.cc.Invoke(ctx, "/nimbler.Server/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nimbler.Writer/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serverClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+func (c *writerClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	out := new(HealthCheckResponse)
-	err := c.cc.Invoke(ctx, "/nimbler.Server/HealthCheck", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/nimbler.Writer/HealthCheck", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ServerServer is the server API for Server service.
-type ServerServer interface {
+// WriterServer is the server API for Writer service.
+type WriterServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
 }
 
-// UnimplementedServerServer can be embedded to have forward compatible implementations.
-type UnimplementedServerServer struct {
+// UnimplementedWriterServer can be embedded to have forward compatible implementations.
+type UnimplementedWriterServer struct {
 }
 
-func (*UnimplementedServerServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
+func (*UnimplementedWriterServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (*UnimplementedServerServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+func (*UnimplementedWriterServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 
-func RegisterServerServer(s *grpc.Server, srv ServerServer) {
-	s.RegisterService(&_Server_serviceDesc, srv)
+func RegisterWriterServer(s *grpc.Server, srv WriterServer) {
+	s.RegisterService(&_Writer_serviceDesc, srv)
 }
 
-func _Server_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Writer_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServerServer).CreateUser(ctx, in)
+		return srv.(WriterServer).CreateUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nimbler.Server/CreateUser",
+		FullMethod: "/nimbler.Writer/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServerServer).CreateUser(ctx, req.(*CreateUserRequest))
+		return srv.(WriterServer).CreateUser(ctx, req.(*CreateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Server_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Writer_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServerServer).HealthCheck(ctx, in)
+		return srv.(WriterServer).HealthCheck(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/nimbler.Server/HealthCheck",
+		FullMethod: "/nimbler.Writer/HealthCheck",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServerServer).HealthCheck(ctx, req.(*HealthCheckRequest))
+		return srv.(WriterServer).HealthCheck(ctx, req.(*HealthCheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Server_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "nimbler.Server",
-	HandlerType: (*ServerServer)(nil),
+var _Writer_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "nimbler.Writer",
+	HandlerType: (*WriterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateUser",
-			Handler:    _Server_CreateUser_Handler,
+			Handler:    _Writer_CreateUser_Handler,
 		},
 		{
 			MethodName: "HealthCheck",
-			Handler:    _Server_HealthCheck_Handler,
+			Handler:    _Writer_HealthCheck_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "nimbler_writer/proto/users.proto",
+	Metadata: "nimbler_writer/proto/contract.proto",
 }
