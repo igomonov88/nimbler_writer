@@ -3,7 +3,6 @@ syntax = "proto3";
 package nimbler;
 
 service Writer {
-  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
 }
 
@@ -12,13 +11,4 @@ message HealthCheckRequest {
 
 message HealthCheckResponse {
   string version = 1;
-}
-
-message CreateUserRequest {
-  string email = 1;
-  string password = 2;
-}
-
-message CreateUserResponse {
-  string userID = 1;
 }
