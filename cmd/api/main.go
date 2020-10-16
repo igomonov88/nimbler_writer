@@ -8,9 +8,10 @@ import (
 	"os/signal"
 	"syscall"
 
-	"contrib.go.opencensus.io/exporter/zipkin"
+	exporter "contrib.go.opencensus.io/exporter/zipkin"
 	openzipkin "github.com/openzipkin/zipkin-go"
-	zipkinHTTP "github.com/openzipkin/zipkin-go/reporter/http"
+	zipkingrpc "github.com/openzipkin/zipkin-go/middleware/grpc"
+	logreporter "github.com/openzipkin/zipkin-go/reporter/log"
 	"github.com/pkg/errors"
 	"go.opencensus.io/trace"
 	"google.golang.org/grpc"
@@ -38,7 +39,6 @@ func main() {
 	}
 }
 
-
 func run() error {
 	// =========================================================================
 	// Logging
@@ -65,19 +65,22 @@ func run() error {
 
 	log.Println("main : Started : Initializing zipkin tracing support")
 
-	localEndpoint, err := openzipkin.NewEndpoint(cfg.Zipkin.ServiceName, cfg.Zipkin.LocalEndpoint)
+	reporter := logreporter.NewReporter(log)
+	zipkinEndpoint, err := openzipkin.NewEndpoint(cfg.Zipkin.ServiceName,cfg.Zipkin.LocalEndpoint)
 	if err != nil {
 		return err
 	}
 
-	reporter := zipkinHTTP.NewReporter(cfg.Zipkin.ReporterURI)
-	ze := zipkin.NewExporter(reporter, localEndpoint)
-
-	trace.RegisterExporter(ze)
+	exp := exporter.NewExporter(reporter, zipkinEndpoint)
+	trace.RegisterExporter(exp)
 	trace.ApplyConfig(trace.Config{
 		DefaultSampler: trace.ProbabilitySampler(cfg.Zipkin.Probability),
 	})
 
+	tracer, err := openzipkin.NewTracer(reporter, openzipkin.WithLocalEndpoint(zipkinEndpoint))
+	if err != nil {
+		return err
+	}
 	defer func() {
 		log.Printf("main : Tracing Stopping : %s", cfg.Zipkin.LocalEndpoint)
 		reporter.Close()
@@ -113,18 +116,14 @@ func run() error {
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, os.Interrupt, syscall.SIGTERM)
 
-	listner, err := net.Listen("tcp", cfg.Service.APIHost)
+	lis, err := net.Listen("tcp", cfg.Service.APIHost)
 	if err != nil {
-		return errors.Wrap(err, "failed to listen tcp address")
+		return errors.Wrap(err, "failed to listen tcp connection")
 	}
-	s := grpc.NewServer()
 
-
-	// Register Server
+	grpcServer := grpc.NewServer(grpc.StatsHandler(zipkingrpc.NewServerHandler(tracer)))
 	srv := handlers.NewServer(db)
-	contract.RegisterWriterServer(s, srv)
-	servingErr:= s.Serve(listner)
-
+	contract.RegisterWriterServer(grpcServer, srv)
 
 	// Make a channel to listen for errors coming from the listener. Use a
 	// buffered channel so the goroutine can exit if we don't collect this error.
@@ -132,31 +131,16 @@ func run() error {
 
 	// Start the service listening for requests.
 	go func() {
-		log.Printf("main : API listening on %s", listner.Addr())
-		serverErrors <- servingErr
+		log.Printf("main : API listening on %s", cfg.Service.APIHost)
+		serverErrors <- grpcServer.Serve(lis)
 	}()
 
-	// =========================================================================
-	// Shutdown
-
-	// Blocking main and waiting for shutdown.
 	select {
+	case err := <-serverErrors:
+		return errors.Wrap(err, "server error")
 	case sig := <-shutdown:
 		log.Printf("main : %v : Start shutdown", sig)
-		// Asking listener to shutdown and load shed.
-		err := listner.Close()
-		if err != nil {
-			log.Printf("main : Graceful shutdown did not complete in %v : %v", cfg.Service.ShutdownTimeout, err)
-			s.GracefulStop()
-		}
-
-		// Log the status of this shutdown.
-		switch {
-		case sig == syscall.SIGSTOP:
-			return errors.New("integrity issue caused shutdown")
-		case err != nil:
-			return errors.Wrap(err, "could not stop server gracefully")
-		}
+		grpcServer.GracefulStop()
 	}
 
 	return nil

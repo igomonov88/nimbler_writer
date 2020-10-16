@@ -5,13 +5,13 @@ web:
   write_timeout: 5
   shutdown_timeout: 5
 zipkin:
-  local_endpoint: 0.0.0.0:3000
+  local_endpoint: 0.0.0.0:5000
   reporter_uri: http://zipkin:9411/api/v2/spans
-  service_name: gateway
+  service_name: writer
   probability: 0.05
 database:
   user: postgres
   password: postgres
   host: 0.0.0.0
-  name: nimbler_writer
+  name: nimbler
   disable_tls: true

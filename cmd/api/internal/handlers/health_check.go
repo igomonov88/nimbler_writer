@@ -18,7 +18,7 @@ func (s *Server) HealthCheck(ctx context.Context, req *pb.HealthCheckRequest) (*
 	defer span.End()
 
 	if err := database.StatusCheck(ctx, s.DB); err != nil {
-		return &pb.HealthCheckResponse{}, status.Error(http.StatusInternalServerError, "database os not ready")
+		return &pb.HealthCheckResponse{}, status.Error(http.StatusInternalServerError, "database is not ready")
 	}
 
 	return &pb.HealthCheckResponse{Version: "develop"}, nil
