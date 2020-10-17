@@ -7,17 +7,11 @@ proto:
 	protoc --go_out=plugins=grpc:. nimbler_writer/proto/contract.proto
 
 
-keys:
-	go run .sugar/cmd/sugar-admin/main.go keygen private.pem
-
-admin:
-	go run .sugar/cmd/sugar-admin/main.go --db-disable-tls=1 useradd admin@example.com gophers
-
 migrate:
-	go run ./cmd/admin/main.go --db-disable-tls=1 migrate
+	go run ./cmd/admin/main.go migrate
 
 seed: migrate
-	go run ./cmd/admin/main.go --db-disable-tls=1 seed
+	go run ./cmd/admin/main.go seed
 
 writer-api:
 	docker build \
