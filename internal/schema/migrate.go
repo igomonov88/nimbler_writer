@@ -33,8 +33,8 @@ var migrations = []darwin.Migration{
   		email VARCHAR(255) NOT NULL UNIQUE,
   		password TEXT NOT NULL,
   		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  		updated_at TIMESTAMP,
-  		deleted_at TIMESTAMP 
+  		updated_at TIMESTAMP DEFAULT NULL,
+  		deleted_at TIMESTAMP DEFAULT NULL 
 	);`,
 	},
 	{
