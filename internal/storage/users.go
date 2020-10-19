@@ -44,7 +44,11 @@ func CreateUser(ctx context.Context, db *sqlx.DB, name, email, password string) 
 	}
 	_, dbErr := db.NamedExec(query, &u)
 	if dbErr != nil {
-		return nil, errors.Wrap(constraintError(err), "inserting user")
+		if constraintError(dbErr) == ErrEmailAlreadyExist {
+			return nil, ErrEmailAlreadyExist
+		}
+
+		return nil, errors.Wrapf(err, "inserting user")
 	}
 
 	return &u, nil
@@ -60,7 +64,7 @@ func RetrieveUser(ctx context.Context, db *sqlx.DB, user_id string) (*User, erro
 		return nil, ErrInvalidUserID
 	}
 
-	const q = `SELECT * FROM users where user_id = $1`
+	const q = `SELECT * FROM users where user_id = $1 and deleted_at is null`
 	var u User
 
 	if err := db.GetContext(ctx, &u, q, user_id); err != nil {
@@ -154,7 +158,7 @@ func constraintError(err error) error {
 		pqErr := err.(*pq.Error)
 		if pqErr.Code == UniqueViolationCode {
 			switch pqErr.Constraint {
-			case "email_idx":
+			case "users_email_key":
 				return ErrEmailAlreadyExist
 			}
 		}

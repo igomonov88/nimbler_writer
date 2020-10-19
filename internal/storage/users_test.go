@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/uuid"
 
 	"nimbler_writer/internal/storage"
 	"nimbler_writer/internal/tests"
@@ -26,7 +27,7 @@ func TestUser(t *testing.T) {
 		"qwerty",
 	}
 
-	// Create New User
+	// Operate with user
 	{
 		nu, err := storage.CreateUser(context.Background(), db, u.name, u.email, u.password)
 		if err != nil {
@@ -74,5 +75,88 @@ func TestUser(t *testing.T) {
 			t.Fatalf("\t%s\tShould update users password: %s", tests.Failed, err)
 		}
 		t.Logf("\t%s\tShould update user users password.", tests.Success)
+
+		exist, err := storage.DoesUserEmailExist(context.Background(), db, nui.email)
+		if err != nil {
+			t.Fatalf("\t%s\tShould be able to check email exist: %s", tests.Failed, err)
+		}
+		if !exist {
+			t.Fatalf("\t%s\tShould exist email for previosly created user: %s", tests.Failed, nui.email)
+		}
+		t.Logf("\t%s\tShould be able to check email exist.", tests.Success)
+
+		err = storage.DeleteUser(context.Background(), db, ru.ID)
+		if err != nil {
+			t.Fatalf("\t%s\tShould be able to delete user with userID: %s", tests.Failed, err)
+		}
+
+		_, err = storage.RetrieveUser(context.Background(), db, ru.ID)
+		if err != storage.ErrNotFound {
+			t.Fatalf("\t%s\tShould not return deleted user: %s", tests.Failed, err)
+		}
+
+		t.Logf("\t%s\tShould be able to delete user with userID.", tests.Success)
+	}
+}
+
+func TestNegativeScenariosForUser(t *testing.T) {
+	db, teardown := tests.NewUnit(t)
+	defer teardown()
+
+	t.Log("Given the need to test user negative scenarios:")
+
+	u := struct {
+		email    string
+		name     string
+		password string
+	}{
+		"igor@gmail.com",
+		"igor",
+		"qwerty",
+	}
+	{
+		_, err := storage.CreateUser(context.Background(), db, u.name, u.email, u.password)
+		if err != nil {
+			t.Fatalf("\t%s\tShould be able to add new user to storage: %s", tests.Failed, err)
+		}
+		_, err = storage.CreateUser(context.Background(), db, u.name, u.email, u.password)
+		if err != storage.ErrEmailAlreadyExist {
+			t.Fatalf("\t%s\tShould return %s, when user with such email already exist: %s", tests.Failed, storage.ErrEmailAlreadyExist, err)
+		}
+		t.Logf("\t%s\tShould return %s when user with such email already exist.", tests.Success, storage.ErrEmailAlreadyExist)
+
+		// try to retrieve user with not valid uuid as user_id
+		_, err = storage.RetrieveUser(context.Background(), db, "qwerasdzxc")
+		if err != storage.ErrInvalidUserID {
+			t.Fatalf("\t%s\tShould return %s while using invalid uuid when retrieve user: %s", tests.Failed, storage.ErrInvalidUserID, err)
+		}
+		t.Logf("\t%s\tShould return %s while using invalid uuid when retrieve user.", tests.Success, storage.ErrInvalidUserID)
+
+		// try to retrieve user with not existing user_id
+		_, err = storage.RetrieveUser(context.Background(), db, uuid.New().String())
+		if err != storage.ErrNotFound {
+			t.Fatalf("\t%s\tShould return %s while using not existing uuid: %s", tests.Failed, storage.ErrNotFound, err)
+		}
+		t.Logf("\t%s\tShould return %s while using not existing uuid.", tests.Success, storage.ErrNotFound)
+
+		// try to update user's password with not valid uuid as user_id
+		err = storage.UpdateUsersPassword(context.Background(), db, "qweasdzxc", "qwerty")
+		if err != storage.ErrInvalidUserID {
+			t.Fatalf("\t%s\tShould return %s while using invalid uuid when update password: %s", tests.Failed, storage.ErrInvalidUserID, err)
+		}
+		t.Logf("\t%s\tShould return %s while using invalid uuid when update password.", tests.Success, storage.ErrInvalidUserID)
+
+		// try to delete user with not valid uuid as user_id
+		err = storage.DeleteUser(context.Background(),db, "qweqweqwe")
+		if err != storage.ErrInvalidUserID {
+			t.Fatalf("\t%s\tShould return %s while using invalid uuid when deleting user: %s", tests.Failed, storage.ErrInvalidUserID, err)
+		}
+		t.Logf("\t%s\tShould return %s while using invalid uuid when delete user.", tests.Success, storage.ErrInvalidUserID)
+
+		err = storage.UpdateUserInfo(context.Background(), db, "qweqweqwe", "qweqwe", "qweqwe")
+		if err != storage.ErrInvalidUserID {
+			t.Fatalf("\t%s\tShould return %s while using invalid uuid when updating user info: %s", tests.Failed, storage.ErrInvalidUserID, err)
+		}
+		t.Logf("\t%s\tShould return %s while using invalid uuid when updating user info.", tests.Success, storage.ErrInvalidUserID)
 	}
 }
