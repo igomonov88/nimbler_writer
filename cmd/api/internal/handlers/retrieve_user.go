@@ -7,8 +7,8 @@ import (
 	"go.opencensus.io/trace"
 	"google.golang.org/grpc/status"
 
-	"nimbler_writer/internal/storage"
-	pb "nimbler_writer/proto"
+	"github.com/igomonov88/nimbler_writer/internal/storage"
+	pb "github.com/igomonov88/nimbler_writer/proto"
 )
 
 func (s *Server) RetrieveUser(ctx context.Context, req *pb.RetrieveUserRequest) (resp *pb.RetrieveUserResponse, err error) {
@@ -16,11 +16,15 @@ func (s *Server) RetrieveUser(ctx context.Context, req *pb.RetrieveUserRequest) 
 	defer span.End()
 
 	ru, err := storage.RetrieveUser(ctx, s.DB, req.GetUserID())
-	switch err {
-	case storage.ErrNotFound:
-		return &pb.RetrieveUserResponse{}, status.Error(http.StatusNotFound, err.Error())
-	default:
-		return &pb.RetrieveUserResponse{}, status.Error(http.StatusInternalServerError, err.Error())
+	if err != nil {
+		switch err {
+		case storage.ErrNotFound:
+			return &pb.RetrieveUserResponse{}, status.Error(http.StatusNotFound, err.Error())
+		case storage.ErrInvalidUserID:
+			return &pb.RetrieveUserResponse{}, status.Error(http.StatusBadRequest, err.Error())
+		default:
+			return &pb.RetrieveUserResponse{}, status.Error(http.StatusInternalServerError, err.Error())
+		}
 	}
 
 	return &pb.RetrieveUserResponse{

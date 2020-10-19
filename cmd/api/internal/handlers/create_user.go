@@ -9,8 +9,8 @@ import (
 
 	_ "google.golang.org/grpc/status"
 
-	"nimbler_writer/internal/storage"
-	pb "nimbler_writer/proto"
+	"github.com/igomonov88/nimbler_writer/internal/storage"
+	pb "github.com/igomonov88/nimbler_writer/proto"
 )
 
 func (s *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (resp *pb.CreateUserResponse, err error) {

@@ -9,8 +9,8 @@ import (
 
 	_ "google.golang.org/grpc/status"
 
-	"nimbler_writer/internal/platform/database"
-	pb "nimbler_writer/proto"
+	"github.com/igomonov88/nimbler_writer/internal/platform/database"
+	pb "github.com/igomonov88/nimbler_writer/proto"
 )
 
 func (s *Server) HealthCheck(ctx context.Context, req *pb.HealthCheckRequest) (*pb.HealthCheckResponse, error) {

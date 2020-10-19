@@ -7,9 +7,9 @@ import (
 
 	"github.com/pkg/errors"
 
-	"nimbler_writer/config"
-	"nimbler_writer/internal/platform/database"
-	"nimbler_writer/internal/schema"
+	"github.com/igomonov88/nimbler_writer/config"
+	"github.com/igomonov88/nimbler_writer/internal/platform/database"
+	"github.com/igomonov88/nimbler_writer/internal/schema"
 )
 
 func main() {
