@@ -4,6 +4,12 @@ package nimbler;
 
 service Writer {
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc UpdateUserInfo(UpdateUserInfoRequest) returns (UpdateUserInfoResponse) {}
+  rpc RetrieveUser(RetrieveUserRequest) returns (RetrieveUserResponse) {}
+  rpc UpdateUserPassword(UpdateUserPasswordRequest) returns (UpdateUserPasswordResponse) {}
+  rpc DoesEmailExist(DoesEmailExistRequest) returns (DoesEmailExistResponse) {}
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
 }
 
 message HealthCheckRequest {
@@ -11,4 +17,59 @@ message HealthCheckRequest {
 
 message HealthCheckResponse {
   string version = 1;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message CreateUserResponse {
+  string userID = 1;
+}
+
+message UpdateUserInfoRequest {
+  string userID = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message UpdateUserInfoResponse {
+
+}
+
+message RetrieveUserRequest {
+  string userID = 1;
+}
+
+message RetrieveUserResponse {
+  string userID = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message UpdateUserPasswordRequest {
+  string userID = 1;
+  string password = 2;
+}
+
+message UpdateUserPasswordResponse {
+
+}
+
+message DoesEmailExistRequest {
+  string email = 1;
+}
+
+message DoesEmailExistResponse {
+  bool exist = 1;
+}
+
+message DeleteUserRequest {
+  string userID = 1;
+}
+
+message DeleteUserResponse {
+
 }

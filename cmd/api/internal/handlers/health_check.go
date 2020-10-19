@@ -14,7 +14,7 @@ import (
 )
 
 func (s *Server) HealthCheck(ctx context.Context, req *pb.HealthCheckRequest) (*pb.HealthCheckResponse, error) {
-	ctx, span := trace.StartSpan(ctx, "handlers.Check.Health")
+	ctx, span := trace.StartSpan(ctx, "handlers.CheckHealth")
 	defer span.End()
 
 	if err := database.StatusCheck(ctx, s.DB); err != nil {
