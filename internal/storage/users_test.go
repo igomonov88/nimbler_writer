@@ -7,8 +7,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/uuid"
 
-	"nimbler_writer/internal/storage"
-	"nimbler_writer/internal/tests"
+	"github.com/igomonov88/nimbler_writer/internal/storage"
+	"github.com/igomonov88/nimbler_writer/internal/tests"
 )
 
 func TestUser(t *testing.T) {
@@ -47,6 +47,12 @@ func TestUser(t *testing.T) {
 		}
 
 		t.Logf("\t%s\tShould be able to add new user to storage.", tests.Success)
+
+		_, err = storage.Authenticate(context.Background(), db, u.email, u.password)
+		if err != nil {
+			t.Fatalf("\t%s\tShould be able to authenticate user: %s", tests.Failed, err)
+		}
+		t.Logf("\t%s\tShould be able to authenticate user.", tests.Success)
 
 		nui := struct {
 			name, email string
@@ -119,6 +125,25 @@ func TestNegativeScenariosForUser(t *testing.T) {
 		if err != nil {
 			t.Fatalf("\t%s\tShould be able to add new user to storage: %s", tests.Failed, err)
 		}
+
+		_, err = storage.Authenticate(context.Background(), db, u.email, "123456")
+		if err == nil {
+			t.Fatalf("\t%s\tShould return %s, when user provide not valid password: %s", tests.Failed, storage.ErrAuthenticationFailure, err)
+		}
+		if err != storage.ErrAuthenticationFailure {
+			t.Fatalf("\t%s\tShould return %s, when user provide not valid password: %s", tests.Failed, storage.ErrAuthenticationFailure, err)
+		}
+		t.Logf("\t%s\tShould return %s, when user provide not valid password", tests.Success, storage.ErrEmailAlreadyExist)
+
+		_, err = storage.Authenticate(context.Background(), db, "qmail1@gmail.com", "qwerty")
+		if err == nil {
+			t.Fatalf("\t%s\tShould return %s, when user provide not valid password: %s", tests.Failed, storage.ErrAuthenticationFailure, err)
+		}
+		if err != storage.ErrNotFound {
+			t.Fatalf("\t%s\tShould return %s, when user provide not existing email: %s", tests.Failed, storage.ErrNotFound, err)
+		}
+		t.Logf("\t%s\tShould return %s, when user provide not existing email.", tests.Success, storage.ErrNotFound)
+
 		_, err = storage.CreateUser(context.Background(), db, u.name, u.email, u.password)
 		if err != storage.ErrEmailAlreadyExist {
 			t.Fatalf("\t%s\tShould return %s, when user with such email already exist: %s", tests.Failed, storage.ErrEmailAlreadyExist, err)
@@ -158,5 +183,6 @@ func TestNegativeScenariosForUser(t *testing.T) {
 			t.Fatalf("\t%s\tShould return %s while using invalid uuid when updating user info: %s", tests.Failed, storage.ErrInvalidUserID, err)
 		}
 		t.Logf("\t%s\tShould return %s while using invalid uuid when updating user info.", tests.Success, storage.ErrInvalidUserID)
+
 	}
 }

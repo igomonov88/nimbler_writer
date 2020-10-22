@@ -4,6 +4,7 @@ package nimbler;
 
 service Writer {
   rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {}
+  rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {}
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
   rpc UpdateUserInfo(UpdateUserInfoRequest) returns (UpdateUserInfoResponse) {}
   rpc RetrieveUser(RetrieveUserRequest) returns (RetrieveUserResponse) {}
@@ -72,4 +73,13 @@ message DeleteUserRequest {
 
 message DeleteUserResponse {
 
+}
+
+message AuthenticateRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthenticateResponse {
+  string userID = 1;
 }

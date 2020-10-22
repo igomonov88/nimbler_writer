@@ -14,6 +14,10 @@ import (
 )
 
 var (
+	// ErrAuthenticationFailure occurs when a user attempts to authenticate but
+	// anything goes wrong.
+	ErrAuthenticationFailure = errors.New("Authentication failed")
+
 	// ErrEmailAlreadyExist is used when User with such email is already exist.
 	ErrEmailAlreadyExist = errors.New("Email already exist")
 
@@ -23,6 +27,32 @@ var (
 	// ErrInvalidID occurs when an ID is not in a valid form.
 	ErrInvalidUserID = errors.New("ID is not in its proper form")
 )
+
+// Authenticate finds a user by their email and verifies their password. On
+// success it returns a User value.
+func Authenticate(ctx context.Context, db *sqlx.DB, email, password string) (*User, error) {
+	ctx, span := trace.StartSpan(ctx, "internal.storage.Authenticate")
+	defer span.End()
+
+	const query = `SELECT * FROM users where email = $1`
+
+	var u User
+	err := db.GetContext(ctx, &u, query, email)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, ErrNotFound
+		}
+		return nil, errors.Wrapf(err, "selecting user with email: %s", email)
+	}
+
+	// Compare the provided password with the saved hash. Use the bcrypt
+	// comparison function so it is cryptographically secure.
+	if err := bcrypt.CompareHashAndPassword(u.Password, []byte(password)); err != nil {
+		return nil, ErrAuthenticationFailure
+	}
+
+	return &u, nil
+}
 
 // CreateUser creates user with provided info in database.
 func CreateUser(ctx context.Context, db *sqlx.DB, name, email, password string) (*User, error) {

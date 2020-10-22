@@ -8,9 +8,9 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	"nimbler_writer/internal/platform/database"
-	"nimbler_writer/internal/platform/database/databasetest"
-	"nimbler_writer/internal/schema"
+	"github.com/igomonov88/nimbler_writer/internal/platform/database"
+	"github.com/igomonov88/nimbler_writer/internal/platform/database/databasetest"
+	"github.com/igomonov88/nimbler_writer/internal/schema"
 )
 
 // Success and failure markers.
@@ -81,8 +81,8 @@ func NewUnit(t *testing.T) (*sqlx.DB, func()) {
 
 // Test owns state for running and shutting down tests.
 type Test struct {
-	DB            *sqlx.DB
-	Log           *log.Logger
+	DB  *sqlx.DB
+	Log *log.Logger
 
 	t       *testing.T
 	cleanup func()
@@ -99,10 +99,10 @@ func NewIntegration(t *testing.T) *Test {
 	logger := log.New(os.Stdout, "TEST : ", log.LstdFlags|log.Lmicroseconds|log.Lshortfile)
 
 	return &Test{
-		DB:            db,
-		Log:           logger,
-		t:             t,
-		cleanup:       cleanup,
+		DB:      db,
+		Log:     logger,
+		t:       t,
+		cleanup: cleanup,
 	}
 }
 
@@ -110,5 +110,3 @@ func NewIntegration(t *testing.T) *Test {
 func (test *Test) Teardown() {
 	test.cleanup()
 }
-
-
