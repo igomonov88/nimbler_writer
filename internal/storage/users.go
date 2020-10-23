@@ -3,7 +3,6 @@ package storage
 import (
 	"context"
 	"database/sql"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
@@ -94,7 +93,7 @@ func RetrieveUser(ctx context.Context, db *sqlx.DB, user_id string) (*User, erro
 		return nil, ErrInvalidUserID
 	}
 
-	const q = `SELECT * FROM users where user_id = $1 and deleted_at is null`
+	const q = `SELECT * FROM users where user_id = $1`
 	var u User
 
 	if err := db.GetContext(ctx, &u, q, user_id); err != nil {
@@ -150,9 +149,9 @@ func DeleteUser(ctx context.Context, db *sqlx.DB, userID string) error {
 		return ErrInvalidUserID
 	}
 
-	const q = `UPDATE users SET deleted_at=$1;`
+	const q = `DELETE FROM users WHERE user_id=$1;`
 
-	if _, err := db.ExecContext(ctx, q, time.Now()); err != nil {
+	if _, err := db.ExecContext(ctx, q, userID); err != nil {
 		return errors.Wrapf(err, "deleting user %s", userID)
 	}
 

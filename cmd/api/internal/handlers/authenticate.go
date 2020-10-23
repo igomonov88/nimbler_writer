@@ -20,6 +20,8 @@ func (s *Server) Authenticate(ctx context.Context, req *pb.AuthenticateRequest) 
 	u, err := storage.Authenticate(ctx, s.DB, req.GetEmail(), req.GetPassword())
 	if err != nil {
 		switch err {
+		case storage.ErrNotFound:
+			return &pb.AuthenticateResponse{}, status.Error(http.StatusNotFound, err.Error())
 		case storage.ErrAuthenticationFailure:
 			return &pb.AuthenticateResponse{}, status.Error(http.StatusForbidden, err.Error())
 		default:

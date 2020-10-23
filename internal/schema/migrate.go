@@ -61,4 +61,9 @@ var migrations = []darwin.Migration{
   	CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(user_id)
 	);`,
 	},
+	{
+		Version: 4,
+		Description: "Remove DeletedAt column from users",
+		Script: `ALTER TABLE users DROP COLUMN deleted_at`,
+	},
 }
