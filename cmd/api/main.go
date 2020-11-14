@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	exporter "contrib.go.opencensus.io/exporter/zipkin"
+	keygen "github.com/igomonov88/nimbler_key_generator/proto"
 	openzipkin "github.com/openzipkin/zipkin-go"
 	zipkingrpc "github.com/openzipkin/zipkin-go/middleware/grpc"
 	logreporter "github.com/openzipkin/zipkin-go/reporter/log"
@@ -87,6 +88,18 @@ func run() error {
 	}()
 
 	// =========================================================================
+	// Start ReaderServer Connection
+	log.Println("main : Started : Initializing server grpc connection")
+
+
+	keyGeneratorConn, err := grpc.Dial(cfg.KeyGenerator.APIHost, grpc.WithInsecure(), grpc.WithStatsHandler(zipkingrpc.NewClientHandler(tracer)))
+	if err != nil {
+		return errors.Wrap(err, "failed to connect to grpc writer server")
+	}
+
+	keyGenClient := keygen.NewKeyGeneratorClient(keyGeneratorConn)
+
+	// =========================================================================
 	// Start Database
 
 	log.Println("main : Started : Initializing database support")
@@ -122,7 +135,7 @@ func run() error {
 	}
 
 	grpcServer := grpc.NewServer(grpc.StatsHandler(zipkingrpc.NewServerHandler(tracer)))
-	srv := handlers.NewServer(db)
+	srv := handlers.NewServer(db, keyGenClient)
 	contract.RegisterWriterServer(grpcServer, srv)
 
 	// Make a channel to listen for errors coming from the listener. Use a

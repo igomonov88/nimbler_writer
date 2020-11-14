@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 package nimbler;
 
 service Writer {
@@ -11,6 +13,9 @@ service Writer {
   rpc UpdateUserPassword(UpdateUserPasswordRequest) returns (UpdateUserPasswordResponse) {}
   rpc DoesEmailExist(DoesEmailExistRequest) returns (DoesEmailExistResponse) {}
   rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
+  rpc CreateUrl(CreateURLRequest) returns (CreateURLResponse) {}
+  rpc DeleteURL(DeleteURLRequest) returns (DeleteURLResponse) {}
+  rpc DeleteURLList(DeleteURLListRequest) returns (DeleteURLListResponse) {}
 }
 
 message HealthCheckRequest {
@@ -82,4 +87,29 @@ message AuthenticateRequest {
 
 message AuthenticateResponse {
   string userID = 1;
+}
+
+message CreateURLRequest {
+  string userID = 1;
+  string originalURL = 2;
+  string customAlias = 3;
+  google.protobuf.Timestamp expiredAt = 4;
+}
+
+message CreateURLResponse {
+    string urlHash = 1;
+}
+
+message DeleteURLRequest {
+  string urlHash = 1;
+}
+
+message DeleteURLResponse {
+}
+
+message DeleteURLListRequest {
+  repeated string urls = 1;
+}
+
+message DeleteURLListResponse {
 }

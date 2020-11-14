@@ -1,11 +1,15 @@
 package handlers
 
-import "github.com/jmoiron/sqlx"
+import (
+	keygen "github.com/igomonov88/nimbler_key_generator/proto"
+	"github.com/jmoiron/sqlx"
+)
 
 type Server struct {
 	DB *sqlx.DB
+	KeyGen keygen.KeyGeneratorClient
 }
 
-func NewServer(db *sqlx.DB) *Server{
-	return &Server{DB: db}
+func NewServer(db *sqlx.DB, keyGenClient keygen.KeyGeneratorClient) *Server{
+	return &Server{DB: db, KeyGen: keyGenClient}
 }

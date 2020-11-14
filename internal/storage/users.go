@@ -182,14 +182,17 @@ func UpdateUsersPassword(ctx context.Context, db *sqlx.DB, userID, password stri
 }
 
 func constraintError(err error) error {
-	const UniqueViolationCode = "23505"
+	const (
+		uniqueViolationCode = "23505"
+		foreignKeyViolationCode = "23503"
+	)
 	if err != nil {
 		pqErr := err.(*pq.Error)
-		if pqErr.Code == UniqueViolationCode {
-			switch pqErr.Constraint {
-			case "users_email_key":
-				return ErrEmailAlreadyExist
-			}
+		switch pqErr.Code {
+		case uniqueViolationCode:
+			return ErrEmailAlreadyExist
+		case foreignKeyViolationCode:
+			return ErrInvalidUserID
 		}
 	}
 	return err

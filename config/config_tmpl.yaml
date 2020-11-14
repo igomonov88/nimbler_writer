@@ -1,0 +1,21 @@
+web:
+  api_host:
+  debug_host:
+  read_timeout:
+  write_timeout:
+  shutdown_timeout:
+zipkin:
+  local_endpoint:
+  reporter_uri:
+  service_name:
+  probability:
+database:
+  user:
+  password:
+  host:
+  name:
+  disable_tls:
+aws:
+  access_key_id:
+  secret_key:
+  bucket_name:

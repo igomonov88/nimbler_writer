@@ -15,3 +15,13 @@ database:
   host: 0.0.0.0
   name: nimbler
   disable_tls: true
+key_generator:
+  api_host: 0.0.0.0:7000
+  debug_host: 0.0.0.0:8000
+  read_timeout: 5
+  write_timeout: 5
+  shutdown_timeout: 5
+aws_s3:
+  acess_key_id: AKIASS7OAKTAV7UYM3PH
+  secret_key: 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
+  bucket_name: nimbler-staging

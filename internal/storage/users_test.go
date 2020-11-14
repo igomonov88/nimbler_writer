@@ -183,6 +183,5 @@ func TestNegativeScenariosForUser(t *testing.T) {
 			t.Fatalf("\t%s\tShould return %s while using invalid uuid when updating user info: %s", tests.Failed, storage.ErrInvalidUserID, err)
 		}
 		t.Logf("\t%s\tShould return %s while using invalid uuid when updating user info.", tests.Success, storage.ErrInvalidUserID)
-
 	}
 }

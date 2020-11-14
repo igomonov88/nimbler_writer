@@ -1,0 +1,20 @@
+# https://docs.docker.com/compose/compose-file
+# docker-compose up
+# docker-compose stop
+# docker-compose down
+version: '3'
+
+networks:
+  shared-network:
+    driver: bridge
+
+services:
+  db:
+    container_name: nimbler_db
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - shared-network
+    image: postgres:11.1-alpine
+    ports:
+      - 5432:5432
